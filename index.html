@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Slither Report</title>
+  </head>
+  <style>
+    table {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    th,
+    td {
+      border: 1px solid black;
+      padding: 4px;
+    }
+  </style>
+  <body>
+    <h1>Slither Report</h1>
+
+    <table id="result-table">
+      <tr>
+        <th>Impact</th>
+        <th>Confidence</th>
+        <th>Location</th>
+        <th>Description</th>
+        <th>Check</th>
+      </tr>
+    </table>
+
+    <script>
+      fetch("./slither-report.json")
+        .then((response) => response.json())
+        .then((data) => {
+          const results = data.results.detectors;
+
+          const resultTable = document.getElementById("result-table");
+          results.forEach((element) => {
+            const row = resultTable.insertRow();
+            const impactCell = row.insertCell(0);
+            const confidenceCell = row.insertCell(1);
+            const locationCell = row.insertCell(2);
+            const descriptionCell = row.insertCell(3);
+            const checkCell = row.insertCell(4);
+
+            impactCell.textContent = element.impact;
+            confidenceCell.textContent = element.confidence;
+            locationCell.textContent = element.first_markdown_element;
+            descriptionCell.textContent = element.description;
+            checkCell.textContent = element.check;
+
+            console.log("Description:", element.description);
+            console.log("Confidence:", element.confidence);
+            console.log("Location:", element.first_markdown_element);
+            console.log("Check:", element.check);
+            console.log("----------------------------");
+          });
+        })
+        .catch((error) => {
+          console.error("Error loading Slither report:", error);
+        });
+    </script>
+  </body>
+</html>

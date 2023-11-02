@@ -1,0 +1,22 @@
+{
+  "name": "silther-tool",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pre-slither": "rm -f slither-report.json",
+    "slither": "npm run pre-slither && slither . --json slither-report.json",
+    "slither-report": "node slither-script.js && rm -f slither-report.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "hardhat": "^2.18.3"
+  },
+  "dependencies": {
+    "puppeteer": "^21.4.1"
+  }
+}
